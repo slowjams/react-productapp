@@ -60,7 +60,7 @@ export const SupplierDisplay = connectFunction(
                         <button className="btn btn-primary m-1"
                             onClick={this.props.createSupplier}>
                             Create Supplier
-            </button>
+                        </button>
                     </div>
                 </div>
             }
