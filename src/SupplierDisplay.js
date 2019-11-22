@@ -49,13 +49,17 @@ export const SupplierDisplay = connectFunction(
         //     this.props.saveCallback(supplier);
         //     this.setState({ showEditor: false, selected: null })
         // }
+        constructor(props) {
+            super(props);
+            //console.log("invoked!!!")
+        }
 
         render() {
             if (this.props.editing) {
                 return <ConnectedEditor key={this.props.selected.id || -1} />
             } else {
                 return <div className="m-2">
-                    <ConnectedTable />
+                    <ConnectedTable needSuppliers={ true } />
                     <div className="text-center">
                         <button className="btn btn-primary m-1"
                             onClick={this.props.createSupplier}>

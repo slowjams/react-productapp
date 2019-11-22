@@ -73,6 +73,11 @@ export const ProductDisplay = connectFunction(
         //         </div>
         //     }
         // }
+        
+        constructor(props) {
+            super(props);
+            console.log("generated******")
+        } 
 
         render() {
             if (this.props.editing) {

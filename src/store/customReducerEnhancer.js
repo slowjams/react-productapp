@@ -9,6 +9,7 @@ export function customReducerEnhancer(originalReducer) {
     let intialState = null;
 
     return (storeData, action) => {
+        //console.log("reducer")
         if (action.type === STORE_RESET && initialData != null) {
             return intialState;
         } else {

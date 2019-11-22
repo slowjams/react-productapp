@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import { endEditing } from "./stateActions";
-import { saveProduct, saveSupplier } from "./modelActionCreators";
+//import { saveProduct, saveSupplier } from "./modelActionCreators";
 import { PRODUCTS, SUPPLIERS } from "./dataTypes";
+import { saveAndEndEditing } from "./multiActionCreators";
 
 export const EditorConnector = (dataType, presentationComponent) => {
 
@@ -19,13 +20,21 @@ export const EditorConnector = (dataType, presentationComponent) => {
     //     saveCallback: dataType === PRODUCTS ? saveProduct : saveSupplier
     // }
 
-    const mapDispatchToProps = dispatch => ({
-        cancelCallback: () => dispatch(endEditing()),
-        saveCallback: (data) => {
-            dispatch((dataType === PRODUCTS ? saveProduct : saveSupplier)(data));
-            dispatch(endEditing());
-        }
-    });
+    // const mapDispatchToProps = dispatch => ({
+    //     cancelCallback: () => dispatch(endEditing()),
+    //     saveCallback: (data) => {
+    //         dispatch((dataType === PRODUCTS ? saveProduct : saveSupplier)(data));
+    //         dispatch(endEditing());
+    //     }
+    // });
 
-    return connect(mapStateToProps, mapDispatchToProps)(presentationComponent);
+    const mapDispatchToProps = {
+        cancelCallback: endEditing,
+        saveCallback: (data) => saveAndEndEditing(data, dataType)
+    }
+
+    const mergeProps = (dataProps, functionProps, ownProps) =>
+        ({ ...dataProps, ...functionProps, ...ownProps })
+
+    return connect(mapStateToProps, mapDispatchToProps, mergeProps)(presentationComponent);
 }
