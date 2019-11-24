@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Link, Route, Switch, Redirect, NavLink } from "react-router-dom";
 import { ProductDisplay } from "./ProductDisplay";
 import { SupplierDisplay } from "./SupplierDisplay";
+import { RouteInfo } from "./routing/RouteInfo";
+import { ToggleLink } from "./routing/ToggleLink";
+
 
 export class Selector extends Component {
 
@@ -47,24 +50,17 @@ export class Selector extends Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-2">
-                        <NavLink className="m-2 btn btn-block btn-primary"
-                            activeClassName="active"
-                            to="/" >Default URL</NavLink>
-                        <NavLink className="m-2 btn btn-block btn-primary"
-                            activeClassName="active"
-                            to="/products">Products</NavLink>
-                        <NavLink className="m-2 btn btn-block btn-primary"
-                            activeClassName="active"
-                            to="/suppliers">Suppliers</NavLink>
-                        <NavLink className="m-2 btn btn-block btn-primary"
-                            activeClassName="active"
-                            to="/old/data">Old Link</NavLink>
+                        <ToggleLink to="/products">Products</ToggleLink>
+                        <ToggleLink to="/suppliers">Suppliers</ToggleLink>
+                        <ToggleLink to="/info/match">Match</ToggleLink>
+                        <ToggleLink to="/info/location">Location</ToggleLink>
+                        <ToggleLink to="/info" exact={true}>All Info</ToggleLink>
                     </div>
                     <div className="col">
                         <Switch>
                             <Route path="/products" component={ProductDisplay} />
                             <Route path="/suppliers" component={SupplierDisplay} />
-                            <Redirect from="/old/data" to="/suppliers" />
+                            <Route path="/info/:datatype?" component={RouteInfo} />
                             <Redirect to="/products" />
                         </Switch>
                     </div>
