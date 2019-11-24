@@ -72,4 +72,25 @@ export class Selector extends Component {
             </div>
         </Router>
     }
+
+    // render() {
+    //     return <Router>
+    //         <div className="container-fluid">
+    //             <div className="row">
+    //                 <div className="col-2">
+    //                     <NavLink className="m-2 btn btn-block btn-primary"
+    //                         activeClassName="active"
+    //                         to="/" >Default URL</NavLink>
+    //                     <NavLink className="m-2 btn btn-block btn-primary"
+    //                         activeClassName="active"
+    //                         to="/products">Products</NavLink>
+                      
+    //                 </div>
+    //                 <div className="col">
+    //                         <Route path="/products" component={ProductDisplay} />
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </Router>
+    // }
 }
