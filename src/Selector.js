@@ -9,6 +9,7 @@ import { RouteInfo } from "./routing/RouteInfo";
 import { ToggleLink } from "./routing/ToggleLink";
 import { CustomPrompt } from "./routing/CustomPrompt";
 import { RoutedDisplay } from "./routing/RoutedDisplay";
+import { IsolatedTable } from "./IsolatedTable";
 
 
 //const RouteInfoHOC = withRouter(RouteInfo);
@@ -83,6 +84,7 @@ export class Selector extends Component {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-2">
+                        <ToggleLink to="/isolated">Isolated Data</ToggleLink>
                         {routes.map(r => <ToggleLink key={r.url} to={r.url}>
                             {r.name}
                         </ToggleLink>)}
@@ -99,9 +101,10 @@ export class Selector extends Component {
                             <Redirect to={routes[0].url} />                   
                         </Switch> */}
                         <Switch>
+                            <Route path="/isolated" component={IsolatedTable} />
                             {routes.map(r =>
                                 <Route key={r.url}
-                                    path={`/:datatype(${r.datatype})/:mode?/:id?`}                                
+                                    path={`/:datatype(${r.datatype})/:mode?/:id?`}
                                     component={RoutedDisplay(r.datatype)} />
                             )}
                             <Redirect to={routes[0].url} />
