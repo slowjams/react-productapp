@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import { startEditingProduct, startEditingSupplier } from "./stateActions";
 import { deleteProduct, deleteSupplier } from "./modelActionCreators";
 import { PRODUCTS, SUPPLIERS } from "./dataTypes";
-import { withRouter } from "react-router-dom";
 
 
 export const TableConnector = (dataType, presentationComponent) => {
@@ -18,7 +17,7 @@ export const TableConnector = (dataType, presentationComponent) => {
     // })
 
     const mapStateToProps = (storeData, ownProps) => {
-        if (dataType === PRODUCTS) {
+        if (!ownProps.needSuppliers) {
             return { products: storeData.modelData[PRODUCTS] };
         } else {
             return {
@@ -40,28 +39,19 @@ export const TableConnector = (dataType, presentationComponent) => {
     // }
 
     const mapDispatchToProps = (dispatch, ownProps) => {
-        if (dataType === PRODUCTS) {
+        console.log('Dispatch ***********')
+        if (!ownProps.needSuppliers) {
             return {
-                //editCallback: (...args) => dispatch(startEditingProduct(...args)),
+                editCallback: (...args) => dispatch(startEditingProduct(...args)),
                 deleteCallback: (...args) => dispatch(deleteProduct(...args))
             }
         } else {
             return {
-                //editCallback: (...args) => dispatch(startEditingSupplier(...args)),
+                editCallback: (...args) => dispatch(startEditingSupplier(...args)),
                 deleteCallback: (...args) => dispatch(deleteSupplier(...args))
             }
         }
     }
 
-    const mergeProps = (dataProps, functionProps, ownProps) => {
-        let routedDispatchers = {
-            editCallback: (target) => {
-                ownProps.history.push(`/${dataType}/edit/${target.id}`);
-            },
-            deleteCallback: functionProps.deleteCallback
-        }
-        return Object.assign({}, dataProps, routedDispatchers, ownProps);
-    }
-
-    return withRouter(connect(mapStateToProps, mapDispatchToProps, mergeProps)(presentationComponent));
+    return connect(mapStateToProps, mapDispatchToProps)(presentationComponent);
 }

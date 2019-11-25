@@ -8,7 +8,6 @@ import { TableConnector } from "./store/TableConnector";
 import { startCreatingProduct } from "./store/stateActions";
 import { saveProduct, deleteProduct } from "./store"
 
-
 const mapStateToProps = (storeData) => ({
     products: storeData.modelData.products
 })
