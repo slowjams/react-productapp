@@ -20,17 +20,23 @@ export const createRestMiddleware = (productsURL, suppliersURL) => {
 
     return ({ dispatch, getState }) => next => action => {
         switch (action.type) {
-            case GET_DATA:
-                if (getState().modelData[action.dataType].length === 0) {
+            case GET_DATA: 
+            console.log("middleware inviked")        
+                if (getState().modelData[action.dataType].length === 0) {                   
                     dataSources[action.dataType].GetData((data) =>
-                        data.forEach(item => next({
-                            type: STORE,
-                            dataType: action.dataType, payload: item
-                        })));
+                        {
+                            console.log(data)
+                            data.forEach(item => next({
+                                type: STORE,
+                                dataType: action.dataType, 
+                                payload: item
+                            }))
+                        }
+                        );
                 }
                 break;
             case STORE:
-                    console("add new product middlleware")
+                console("add new product middlleware")
                 action.payload.id = null;
                 dataSources[action.dataType].Store(action.payload, data =>
                     next({ ...action, payload: data }))

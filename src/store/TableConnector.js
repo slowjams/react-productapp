@@ -20,6 +20,7 @@ export const TableConnector = (dataType, presentationComponent) => {
     // })
 
     const mapStateToProps = (storeData, ownProps) => {
+        console.log("mapStateToProps this is ")
         if (dataType === PRODUCTS) {
             return { products: storeData.modelData[PRODUCTS] };
         } else {
