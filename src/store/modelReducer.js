@@ -4,6 +4,7 @@ import { initialData } from "./initialData";
 export default function (storeData, action) {
     switch (action.type) {
         case STORE:
+            console("add new product")
             return {
                 ...storeData,
                 [action.dataType]: storeData[action.dataType].concat([action.payload])

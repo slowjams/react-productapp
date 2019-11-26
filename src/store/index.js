@@ -1,8 +1,9 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import modelReducer from "./modelReducer";
 import stateReducer from "./stateReducer";
 import { customReducerEnhancer } from "./customReducerEnhancer";
 import { multiActions } from "./multiActionMiddleware";
+import { createRestMiddleware } from "../webservice/RestMiddleware";
 
 const enhancedReducer = customReducerEnhancer(
     combineReducers(
@@ -12,6 +13,10 @@ const enhancedReducer = customReducerEnhancer(
         })
 );
 
-export default createStore(enhancedReducer, applyMiddleware(multiActions));
+const restMiddleware = createRestMiddleware(
+    "http://localhost:3500/api/products",
+    "http://localhost:3500/api/suppliers");
+
+export default createStore(enhancedReducer, compose(applyMiddleware(multiActions), applyMiddleware(restMiddleware)));
 
 export { saveProduct, saveSupplier, deleteProduct, deleteSupplier } from "./modelActionCreators";

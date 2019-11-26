@@ -10,7 +10,8 @@ import { ToggleLink } from "./routing/ToggleLink";
 import { CustomPrompt } from "./routing/CustomPrompt";
 import { RoutedDisplay } from "./routing/RoutedDisplay";
 import { IsolatedTable } from "./IsolatedTable";
-
+import { IsolatedEditor } from "./IsolatedEditor";
+import { RequestError } from "./webservice/RequestError";
 
 //const RouteInfoHOC = withRouter(RouteInfo);
 
@@ -101,7 +102,12 @@ export class Selector extends Component {
                             <Redirect to={routes[0].url} />                   
                         </Switch> */}
                         <Switch>
-                            <Route path="/isolated" component={IsolatedTable} />
+                            <Route path="/isolated" component={IsolatedTable}
+                                exact={true} />
+                            <Route path="/isolated/:mode/:id?"
+                                component={IsolatedEditor} />
+                            <Route path="/error/:message"
+                                component={RequestError} />
                             {routes.map(r =>
                                 <Route key={r.url}
                                     path={`/:datatype(${r.datatype})/:mode?/:id?`}
